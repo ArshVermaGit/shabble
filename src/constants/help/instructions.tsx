@@ -1,6 +1,6 @@
 import { Board } from '@/components';
 import React from 'react';
-
+import { FaGithub } from 'react-icons/fa';
 
 const hiddenShapes: string[][][] = [
     [
@@ -134,7 +134,19 @@ export const instructions: readonly (string | JSX.Element)[][] = [
             Made with ❤️ by <a href="https://github.com/coder-zs-cse/" className='text-green-600 font-bold' target="_blank" rel="noopener noreferrer">Zubin Shah</a>
         </>,
         <>
-            Buy me a <a href="https://getmechai.vercel.app/link.html?vpa=www.zubinshah1886@okaxis&nm=ZubinShah&amt=100" className='text-green-600 font-bold' target="_blank" rel="noopener noreferrer">{" "}chai ☕</a>
+        <>
+    <>
+    <a
+        href="https://github.com/coder-zs-cse/Shabble"
+        className='text-green-600 font-bold inline-flex items-center gap-2'
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        <FaGithub size={29} />
+        GitHub
+    </a>
+</>
+</>
         </>
     ]
 ] as const;
