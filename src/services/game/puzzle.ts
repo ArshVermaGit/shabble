@@ -1,6 +1,6 @@
 import { DailyPuzzle } from "@prisma/client";
 import { prisma } from "@/lib";
-import { getCachedCurrentBoard } from "@/lib/utils/boardcache";
+import { cache } from "@/lib/utils/cache";
 export function fetchBoard(boardSize: number): { x: number, y: number }[] {
     const randomCoordinates: { x: number, y: number }[] = [];
 
@@ -146,9 +146,9 @@ export async function getCurrentBoard(params: getCurrentBoardParams): Promise<Da
         throw new Error("Invalid date or boardSize");
     }
     const keyDate = new Date(date).toISOString().split("T")[0];
-    return getCachedCurrentBoard(
-        keyDate,
-        String(boardSize),
+    const key=`${keyDate}_${boardSize}`;
+    return cache(
+        key,
         async () => {
             return getCurrentBoardFromDB(params);
         }
