@@ -14,7 +14,7 @@ interface TileProps {
 }
 
 const tile = tv({
-  base: "flex items-center justify-center rounded-md sm:rounded-xl md:rounded-xl font-bold text-2xl md:text-4xl cursor-pointer text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.05)]",
+  base: "flex items-center justify-center rounded-md sm:rounded-xl md:rounded-xl font-bold text-2xl md:text-4xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.05)]",
   variants: {
     status: {
       "tile-empty": "bg-gray-200",
@@ -25,10 +25,15 @@ const tile = tv({
       "guess-loading": "animate-guessLoading",
       "guess-incorrect": "bg-red-600 animate-shake",
       "won": "bg-green-600"
+    },
+    gameComplete: {
+      true: "cursor-not-allowed",
+      false: "cursor-pointer"
     }
   },
   defaultVariants: {
-    status: "tile-empty"
+    status: "tile-empty",
+    gameComplete: false
   }
 })
 
@@ -72,6 +77,7 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
       onClick={handleTileClick}
       className={tile({
         status: getTileStatus(),
+        gameComplete: ["won", "lost"].includes(gameStatus || ""),
         className
       })}
     >
