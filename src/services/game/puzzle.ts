@@ -1,5 +1,6 @@
 import { DailyPuzzle } from "@prisma/client";
 import { prisma } from "@/lib";
+import { getCachedCurrentBoard } from "@/lib/utils/boardcache";
 export function fetchBoard(boardSize: number): { x: number, y: number }[] {
     const randomCoordinates: { x: number, y: number }[] = [];
 
@@ -55,7 +56,7 @@ interface getCurrentBoardParams {
     boardSize?: number;
     date?: string;
 }
-export async function getCurrentBoard({ puzzleId, boardSize, date }: getCurrentBoardParams): Promise<DailyPuzzle> {
+async function getCurrentBoardFromDB({ puzzleId, boardSize, date }: getCurrentBoardParams): Promise<DailyPuzzle> {
     try {
         console.log("puzzleId in getCurrentBoard", puzzleId, boardSize, date);
         if (puzzleId) {
@@ -133,6 +134,25 @@ export function checkGuess(board: { x: number, y: number }[], guess: string[][])
     // console.log("board in checkGuess", board);
     // console.log("guess in checkGuess", guess);
     return board.every(({ x, y }) => guess[x][y] === 'X');
+}
+
+export async function getCurrentBoard(params: getCurrentBoardParams): Promise<DailyPuzzle> {
+    const { date, boardSize, puzzleId } = params;
+    if (puzzleId) {
+        return getCurrentBoardFromDB(params);
+    }
+
+    if (!date || !boardSize) {
+        throw new Error("Invalid date or boardSize");
+    }
+    const keyDate = new Date(date).toISOString().split("T")[0];
+    return getCachedCurrentBoard(
+        keyDate,
+        String(boardSize),
+        async () => {
+            return getCurrentBoardFromDB(params);
+        }
+    );
 }
 
 // export async function updateProgress(userId: string, date: string, attempts: number): Promise<void> {
