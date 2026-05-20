@@ -65,3 +65,38 @@
 .debug {
   outline: 1px solid red;
 }
+
+/* Dark Mode */
+.dark body {
+  background-color: #1a1a2e;
+  color: #ffffff;
+}
+
+.dark nav {
+  background-color: #16213e;
+}
+
+.dark .bg-gray-200 {
+  background-color: #2d2d44 !important;
+}
+
+.dark .bg-white {
+  background-color: #16213e !important;
+}
+
+.dark .text-gray-800 {
+  color: #ffffff !important;
+}
+
+.dark .text-gray-600 {
+  color: #cccccc !important;
+}
+
+.dark .border-gray-300 {
+  border-color: #444466 !important;
+}
+
+.dark input {
+  background-color: #2d2d44;
+  color: #ffffff;
+}

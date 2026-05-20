@@ -1,7 +1,8 @@
+'use client'
 import { Icons, Title } from '@/components'
 import { TiThMenu } from "react-icons/ti"
-import { FaHeart, FaQuestion } from "react-icons/fa"
-import { MdLeaderboard } from "react-icons/md"
+import { FaQuestion } from "react-icons/fa"
+import { MdLeaderboard, MdDarkMode, MdLightMode } from "react-icons/md"
 import { Statistics, Help } from '../nav'
 import { StatisticsProps } from '@/types'
 import { useState } from 'react'
@@ -17,7 +18,19 @@ interface GameHeaderProps {
 }
 export function GameHeader({ showHelp, showStatistics, setShowHelp, setShowStatistics, statistics }: GameHeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isDark, setIsDark] = useState(false);
     const { updateSettings } = useGameSettings();
+
+    const toggleDark = () => {
+        if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        setIsDark(!isDark);
+    };
 
     const handleDifficultySelect = (size: number) => {
         updateSettings({ boardSize: size as 5 | 6 | 7 });
@@ -45,7 +58,13 @@ export function GameHeader({ showHelp, showStatistics, setShowHelp, setShowStati
                     icon={<TiThMenu className='w-[20px] h-[20px] md:w-[24px] md:h-[24px]' />}
                     onClick={() => setIsMenuOpen(true)}
                 />
-                <Icons icon={<FaHeart className='w-[20px] h-[20px] md:w-[24px] md:h-[24px]' />} />
+                <Icons
+                    icon={isDark
+                        ? <MdLightMode className='w-[20px] h-[20px] md:w-[24px] md:h-[24px]' />
+                        : <MdDarkMode className='w-[20px] h-[20px] md:w-[24px] md:h-[24px]' />
+                    }
+                    onClick={toggleDark}
+                />
                 <Title title='SHABBLE' className='flex-1 text-center' />
                 <Icons
                     icon={<MdLeaderboard className='w-[20px] h-[20px] md:w-[24px] md:h-[24px]' />}
