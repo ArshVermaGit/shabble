@@ -27,7 +27,7 @@ const tile = tv({
       "won": "bg-green-600"
     },
     gameComplete: {
-      true: "cursor-not-allowed",
+      true: "",
       false: "cursor-pointer"
     }
   },

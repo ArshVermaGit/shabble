@@ -57,7 +57,7 @@ interface getCurrentBoardParams {
 }
 export async function getCurrentBoard({ puzzleId, boardSize, date }: getCurrentBoardParams): Promise<DailyPuzzle> {
     try {
-        console.log("puzzleId in getCurrentBoard", puzzleId, boardSize, date);
+        // console.log("puzzleId in getCurrentBoard", puzzleId, boardSize, date);
         if (puzzleId) {
             const dailyPuzzle = await prisma.dailyPuzzle.findUnique({
                 where: {
@@ -81,7 +81,7 @@ export async function getCurrentBoard({ puzzleId, boardSize, date }: getCurrentB
                 }
             }
         });
-        console.log("dailyPuzzle in getCurrentBoard before fetchBoard", dailyPuzzle);
+        // console.log("dailyPuzzle in getCurrentBoard before fetchBoard", dailyPuzzle);
         if (!dailyPuzzle) {
             const board = fetchBoard(boardSize);
             const puzzleData = {
@@ -89,16 +89,16 @@ export async function getCurrentBoard({ puzzleId, boardSize, date }: getCurrentB
                 board,
                 boardSize: boardSize
             }
-            console.log("current board in getCurrentBoard before create", puzzleData);
+            // console.log("current board in getCurrentBoard before create", puzzleData);
             dailyPuzzle = await prisma.dailyPuzzle.create({
                 data: puzzleData
             }).catch((error) => {
                 console.error("Error prisma create daily puzzle", error);
                 throw error;
             });
-            console.log("dailyPuzzle in getCurrentBoard after create", dailyPuzzle);
+            // console.log("dailyPuzzle in getCurrentBoard after create", dailyPuzzle);
         }
-        console.log("dailyPuzzle in getCurrentBoard", dailyPuzzle);
+        // console.log("dailyPuzzle in getCurrentBoard", dailyPuzzle);
         return dailyPuzzle
     } catch (error) {
         console.error("Error fetching current board:", error);
