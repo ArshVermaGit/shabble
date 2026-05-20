@@ -68,17 +68,19 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
     if (gameStatus === "tile-loading") {
       return tileContent ? tileContent : isLoading ? <TileLoader /> : '';
     }
-    if (["playing", "lost"].includes(gameStatus || "") && tileContent) return tileContent;
+    if (["playing", "lost", "guessing", "guess-loading"].includes(gameStatus || "") && tileContent) return tileContent;
     return '';
   };
+
+  const tileStatus = getTileStatus();
 
   return (
     <div
       onClick={handleTileClick}
       className={tile({
-        status: getTileStatus(),
+        status: tileStatus,
         gameComplete: ["won", "lost"].includes(gameStatus || ""),
-        className
+        className: `${className || ''} ${tileStatus === 'guess-empty' && tileContent ? '!text-green-800' : ''}`
       })}
     >
       {getTileContent()}
