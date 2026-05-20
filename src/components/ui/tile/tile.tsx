@@ -68,7 +68,8 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
     if (gameStatus === "tile-loading") {
       return tileContent ? tileContent : isLoading ? <TileLoader /> : '';
     }
-    if (["playing", "lost", "guessing", "guess-loading"].includes(gameStatus || "") && tileContent) return tileContent;
+    if (["playing", "lost"].includes(gameStatus || "") && tileContent) return tileContent;
+    if (["guessing", "guess-loading"].includes(gameStatus || "") && tileContent && tileContent !== 'X') return tileContent;
     return '';
   };
 
