@@ -75,6 +75,8 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
 
   const tileStatus = getTileStatus();
 
+  const isGuessModeHint = ["guessing", "guess-loading"].includes(gameStatus || "") && tileContent && tileContent !== 'X';
+
   return (
     <div
       onClick={handleTileClick}
@@ -84,7 +86,11 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
         className: `${className || ''} ${tileStatus === 'guess-empty' && tileContent ? '!text-green-800' : ''}`
       })}
     >
-      {getTileContent()}
+      {isGuessModeHint ? (
+        <span className="opacity-50">{getTileContent()}</span>
+      ) : (
+        getTileContent()
+      )}
     </div>
   )
 }
