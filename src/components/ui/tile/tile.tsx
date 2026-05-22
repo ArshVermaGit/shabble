@@ -87,7 +87,7 @@ function Tile({ className, tileContent, guessContent, onClick, gameStatus, incor
       })}
     >
       {isGuessModeHint ? (
-        <span className="opacity-50">{getTileContent()}</span>
+        <span className="opacity-15">{getTileContent()}</span>
       ) : (
         getTileContent()
       )}
