@@ -10,7 +10,7 @@ export const getGameStatus = async (date: string, boardSize: number): Promise<Ga
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.code === "ERR_BAD_RESPONSE") {
-            toast.error("Database is inactive, please ask developer to activate it");
+            
         }
         console.error('Error fetching game settings:', error);
         throw error;
@@ -23,7 +23,7 @@ export const getHint = async (puzzleId: number, x: number, y: number): Promise<g
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.code === "ERR_BAD_RESPONSE") {
-            toast.error("Database is inactive, please ask developer to activate it");
+            
         }
         console.error('Error fetching hint:', error);
         throw error;
@@ -36,7 +36,7 @@ export const checkGuess = async (puzzleId: number, guess: string[][], attempts: 
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.code === "ERR_BAD_RESPONSE") {
-            toast.error("Database is inactive, please ask developer to activate it");
+            
         }
         console.error('Error checking guess:', error);
         throw error;

@@ -14,7 +14,8 @@ export async function middleware(request: NextRequest) {
         
         // If no userId in header or user doesn't exist, create new user
         if (!userId) {
-            const newUserResponse = await fetch(`${request.nextUrl.origin}/api/new-user`, {
+            const baseUrl = process.env.INTERNAL_API_URL ?? request.nextUrl.origin
+            const newUserResponse = await fetch(`${baseUrl}/api/new-user`, {
                 method: 'PUT',
             })
             const data = await newUserResponse.json()

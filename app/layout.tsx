@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider } from '@/contexts';
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -16,10 +17,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            (function() {
+              try {
+                var theme = localStorage.getItem('theme');
+                if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch(e) {}
+            })();
+          `
+        }} />
+      </head>
       <body>
-        <ToastContainer />
-        {children}
+        <ThemeProvider>
+          <ToastContainer />
+          {children}
+        </ThemeProvider>
       </body>
       {/* <script defer src="https://usa.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="188903092"></script> */}
       {/* <script defer src="https://www.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="111651938"></script> */}
