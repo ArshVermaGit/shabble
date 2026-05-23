@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ToastContainer } from 'react-toastify';
 import "@/styles/globals.css";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Shabble",
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ToastContainer />
+        <Analytics />
         {children}
       </body>
       {/* <script defer src="https://usa.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="188903092"></script> */}
