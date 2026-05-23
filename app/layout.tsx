@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ToastContainer } from 'react-toastify';
 import { ThemeProvider, ThemeScript } from '@/contexts';
 import "@/styles/globals.css";
+import { Analytics } from '@vercel/analytics/next';
 
 export const metadata: Metadata = {
   title: "Shabble",
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <ToastContainer />
+          <Analytics />
           {children}
         </ThemeProvider>
       </body>
