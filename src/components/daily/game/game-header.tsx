@@ -3,9 +3,10 @@ import { Icons, Title } from '@/components'
 import { TiThMenu } from "react-icons/ti"
 import { FaQuestion } from "react-icons/fa"
 import { MdLeaderboard, MdDarkMode, MdLightMode } from "react-icons/md"
+import { useState ,useEffect } from 'react'
+import { useTheme } from '@/contexts'
 import { Statistics, Help } from '../nav'
 import { StatisticsProps } from '@/types'
-import { useState } from 'react'
 import Menu from '../nav/menu'
 import { useGameSettings } from '@/contexts'
 
@@ -18,20 +19,8 @@ interface GameHeaderProps {
 }
 export function GameHeader({ showHelp, showStatistics, setShowHelp, setShowStatistics, statistics }: GameHeaderProps) {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isDark, setIsDark] = useState(false);
+    const { isDark, toggleDark } = useTheme();
     const { updateSettings } = useGameSettings();
-
-    const toggleDark = () => {
-        if (isDark) {
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('theme', 'light');
-        } else {
-            document.documentElement.classList.add('dark');
-            localStorage.setItem('theme', 'dark');
-        }
-        setIsDark(!isDark);
-    };
-
     const handleDifficultySelect = (size: number) => {
         updateSettings({ boardSize: size as 5 | 6 | 7 });
         setIsMenuOpen(false);
