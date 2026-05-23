@@ -41,7 +41,7 @@ export function GameSettingsProvider({ children }: { children: React.ReactNode }
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
 
-    console.log("settings", settings);
+    // console.log("settings", settings);
     useEffect(() => {
         async function fetchGameSettings() {
             setIsLoading(true);

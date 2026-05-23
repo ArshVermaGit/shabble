@@ -23,7 +23,7 @@ function Daily() {
         setShowStatistics
     } = useGameLogic();
 
-    console.log("settings in daily", settings)
+    // console.log("settings in daily", settings)
     if(error){
         toast.error("Database is inactive, please ask developer to activate it");
     }
