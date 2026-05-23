@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToastContainer } from 'react-toastify';
+import { ThemeProvider, ThemeScript } from '@/contexts';
 import "@/styles/globals.css";
 import { Analytics } from '@vercel/analytics/next';
 
@@ -17,11 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
       <body>
-        <ToastContainer />
-        <Analytics />
-        {children}
+        <ThemeProvider>
+          <ToastContainer />
+          <Analytics />
+          {children}
+        </ThemeProvider>
       </body>
       {/* <script defer src="https://usa.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="188903092"></script> */}
       {/* <script defer src="https://www.kenyt.ai/botapp/ChatbotUI/dist/js/bot-loader.js" type="text/javascript" data-bot="111651938"></script> */}

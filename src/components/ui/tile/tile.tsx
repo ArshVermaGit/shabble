@@ -17,9 +17,9 @@ const tile = tv({
   base: "flex items-center justify-center rounded-md sm:rounded-xl md:rounded-xl font-bold text-2xl md:text-4xl text-white shadow-[inset_0_-4px_0_rgba(0,0,0,0.05)]",
   variants: {
     status: {
-      "tile-empty": "bg-gray-200",
+      "tile-empty": "bg-gray-200 dark:bg-gray-800",
       "tile-loading": "bg-yellow-400",
-      "tile-filled": "bg-yellow-400",
+      "tile-filled": "bg-yellow-400 dark:bg-yellow-500",
       "guess-empty": "bg-green-200",
       "guess-filled": "bg-green-600",
       "guess-loading": "animate-guessLoading",
