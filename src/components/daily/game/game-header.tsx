@@ -3,7 +3,7 @@ import { Icons, Title } from '@/components'
 import { TiThMenu } from "react-icons/ti"
 import { FaQuestion } from "react-icons/fa"
 import { MdLeaderboard, MdDarkMode, MdLightMode } from "react-icons/md"
-import { useState ,useEffect } from 'react'
+import { useState } from 'react'
 import { useTheme } from '@/contexts'
 import { Statistics, Help } from '../nav'
 import { StatisticsProps } from '@/types'

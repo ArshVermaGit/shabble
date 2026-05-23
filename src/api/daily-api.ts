@@ -1,7 +1,6 @@
 import { API_GAME_STATUS, API_HINT, API_CHECK_GUESS } from "@/constants";
 import { axiosSecure } from "./axios";
 import { checkGuessResponse, GameStatusResponse, getHintResponse } from "@/types";
-import { toast } from "react-toastify";
 import { AxiosError } from "axios";
     
 export const getGameStatus = async (date: string, boardSize: number): Promise<GameStatusResponse> => {
