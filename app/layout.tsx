@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ToastContainer } from 'react-toastify';
-import { ThemeProvider } from '@/contexts';
+import { ThemeProvider, ThemeScript } from '@/contexts';
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -19,18 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            (function() {
-              try {
-                var theme = localStorage.getItem('theme');
-                if (theme === 'dark') {
-                  document.documentElement.classList.add('dark');
-                }
-              } catch(e) {}
-            })();
-          `
-        }} />
+        <ThemeScript />
       </head>
       <body>
         <ThemeProvider>

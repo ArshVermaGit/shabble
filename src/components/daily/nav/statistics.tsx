@@ -3,9 +3,9 @@ import { Title } from '@/components'
 
 // Subcomponents
 const StatBox = ({ label, value }: { label: string; value: number }) => (
-  <div className="flex flex-col items-center justify-center py-4 border-b hover:bg-gray-100">
-    <div className="flex items-center justify-center text-sm text-gray-600 uppercase tracking-wide w-full h-full text-center">{label}</div>
-    <div className="text-2xl font-semibold text-center w-full h-full">{value}</div>
+  <div className="flex flex-col items-center justify-center py-4 border-b hover:bg-gray-100  group">
+    <div className="flex items-center justify-center text-sm text-gray-600 uppercase tracking-wide w-full h-full text-center group-hover:!text-black">{label}</div>
+    <div className="text-2xl font-semibold text-center w-full h-full group-hover:!text-black">{value}</div>
   </div>
   // <div className="flex items-center justify-center">
   //   <div className="text-xl text-gray-600 bg-gray-200 uppercase text-right tracking-wide w-full h-full">{label}</div>
@@ -63,10 +63,10 @@ function Statistics({ statistics, setShowStatistics }: StatisticsProps) {
       >
         {/* Header */}
         <div className="flex justify-between items-center mb-4">
-          <Title title='STATISTICS' className='flex-1 text-center' />
+          <Title title='STATISTICS' className='flex-1 text-center dark:text-white' />
           <button 
             onClick={() => setShowStatistics(false)}
-            className="text-gray-500 hover:text-gray-700"
+            className="text-gray-500 hover:text-gray-700 dark:text-white"
           >
             ✕
           </button>

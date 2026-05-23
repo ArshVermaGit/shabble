@@ -1,4 +1,3 @@
-'use client';
 import { Board } from '@/components';
 import React from 'react';
 import { FaGithub } from 'react-icons/fa';
@@ -107,7 +106,7 @@ export const instructions: readonly (string | JSX.Element)[][] = [
                         gameStatus={index === 0 ? "playing" : "guessing"}
                         incorrectGuess={false}
                         className='!w-[40%] md:!w-[20%] !gap-0.5'
-                        tileClassName={`!rounded !text-base !cursor-default !border !border-slate-400 ${index === 0 ? '!bg-slate-300 dark:!bg-slate-600 [&:not(:empty)]:!bg-yellow-400 [&:not(:empty)]:!text-gray-900 [&:not(:empty)]:!font-bold' : ''}`}
+                        tileClassName='!rounded !text-base !cursor-default dark:text-white'
                     />
                 ))}
             </div>

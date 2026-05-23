@@ -22,7 +22,7 @@ export function GameStatus({
 }: GameStatusProps) {
     return (
         <>
-            <Text className='!text-base md:!text-2xl text-gray-400'>
+            <Text className='!text-base md:!text-2xl text-gray-400 dark:text-white'>
                 DAILY SHABBLE #{getPuzzleNumber(date)}
             </Text>
             <Board
