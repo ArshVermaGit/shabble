@@ -35,7 +35,7 @@ export function GameControls({
                 <Button
                     onClick={onSubmit}
                     disabled={isSubmitDisabled}
-                    className='h-[48px] md:h-[64px] bg-green-600 font-bold text-xl md:text-2xl'
+                    className='h-[48px] md:h-[64px] bg-green-600 font-bold text-xl md:text-2xl dark:text-white'
                 >
                     {gameStatus === "guessing" ? 'SUBMIT' : 'MAKE A GUESS'}
                 </Button>

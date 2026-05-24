@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
     
 export const getGameStatus = async (date: string, boardSize: number): Promise<GameStatusResponse> => {
     try {
-        const response = await axiosSecure.get(`${API_GAME_STATUS}?date=${date}&boardSize=${boardSize}`);
+        const response = await axiosSecure.get(`${API_GAME_STATUS}?boardSize=${boardSize}`);
         return response.data;
     } catch (error) {
         if (error instanceof AxiosError && error.code === "ERR_BAD_RESPONSE") {

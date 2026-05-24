@@ -39,7 +39,7 @@ import axios, {
       instance.interceptors.response.use(
         (response) => {
             const newUserId = response.headers['x-user-id'];
-            console.log("newUserId in response", newUserId)
+            // console.log("newUserId in response", newUserId)
             if (newUserId) {
                 localStorage.setItem("userId", newUserId);
             }

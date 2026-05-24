@@ -7,10 +7,7 @@ const settingsParamsSchema = z.object({
   boardSize: z.coerce
     .number()
     .min(1, 'Board size must be at least 1')
-    .default(6),
-  date: z.string()
-    .regex(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format. Use YYYY-MM-DD')
-    .default(() => new Date().toISOString().split('T')[0]),
+    .default(6)
 });
 
 export function validateStatusParams(searchParams: URLSearchParams, userId: string | null): {
@@ -20,8 +17,7 @@ export function validateStatusParams(searchParams: URLSearchParams, userId: stri
 } {
   const result = settingsParamsSchema.safeParse({
     userId,
-    boardSize: searchParams.get('boardSize'),
-    date: searchParams.get('date'),
+    boardSize: searchParams.get('boardSize')
   });
 
   if (!result.success) {

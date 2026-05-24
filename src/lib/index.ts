@@ -2,15 +2,16 @@ import { prisma } from "./db/connect";
 
 export { prisma };
 
-import { 
+export { 
     coordinatesToBoard,
-    getPuzzleNumber
- } from "./utils/puzzle";
+    getPuzzleNumber,
+    getEndOfDayTimestampUTC
+} from "./utils/puzzle";
 
 export {
-    coordinatesToBoard,
-    getPuzzleNumber
-}
+    cache
+} from "./utils/cache"
+
 
 import { validateHintParams } from "./validation/hint-validation";
 import { validateGuessCheckParams } from "./validation/guess-check-validation";

@@ -106,7 +106,7 @@ export const instructions: readonly (string | JSX.Element)[][] = [
                         gameStatus={index === 0 ? "playing" : "guessing"}
                         incorrectGuess={false}
                         className='!w-[40%] md:!w-[20%] !gap-0.5'
-                        tileClassName='!rounded !text-base !cursor-default'
+                        tileClassName='!rounded !text-base !cursor-default dark:text-white'
                     />
                 ))}
             </div>
@@ -120,7 +120,7 @@ export const instructions: readonly (string | JSX.Element)[][] = [
             Guessing a incorrect shape would consume 2 hints.
         </>,
         <>
-            <p className='text-black font-bold text-xl md:text-2xl text-center'>15 <span className='text-[#a9abad] font-normal'>HINTS REMAINING</span></p>
+            <p className='text-black dark:text-white font-bold text-xl md:text-2xl text-center'>15 <span className='text-[#a9abad] font-normal'>HINTS REMAINING</span></p>
         </>,
         <>
             Solve the <span className="font-bold">SHABBLE</span> in 15 attempts or fewer.

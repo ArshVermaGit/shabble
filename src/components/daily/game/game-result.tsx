@@ -50,11 +50,11 @@ function WinMessage() {
 
 function LoseMessage() {
     return (
-        <div className='flex flex-col items-center justify-center'>
+        <div className='flex flex-col items-center justify-center bg-white dark:bg-gray-800 text-black dark:text-white w-full p-4'>
             <span className='text-red-700 font-bold text-sm sm:text-xl md:text-2xl'>
                 GAME OVER!
             </span>
-            <span className='text-black font-base text-sm sm:text-md md:text-xl'>
+            <span className='text-black dark:text-white font-base text-sm sm:text-md md:text-xl'>
                 Come back tomorrow to guess the new shape!
             </span>
         </div>
