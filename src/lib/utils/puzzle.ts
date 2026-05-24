@@ -14,3 +14,9 @@ export const getPuzzleNumber = (date: string): string => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
     return diffDays.toString().padStart(3, '0');
 }
+
+export const getEndOfDayTimestampUTC = () => {
+  const end = new Date();
+  end.setUTCHours(23, 59, 59, 999);
+  return end.getTime();
+}

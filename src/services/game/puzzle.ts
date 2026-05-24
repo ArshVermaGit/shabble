@@ -1,5 +1,7 @@
 import { DailyPuzzle } from "@prisma/client";
 import { prisma } from "@/lib";
+import { cache, getEndOfDayTimestampUTC } from "@/lib";
+
 export function fetchBoard(boardSize: number): { x: number, y: number }[] {
     const randomCoordinates: { x: number, y: number }[] = [];
 
@@ -55,7 +57,7 @@ interface getCurrentBoardParams {
     boardSize?: number;
     date?: string;
 }
-export async function getCurrentBoard({ puzzleId, boardSize, date }: getCurrentBoardParams): Promise<DailyPuzzle> {
+async function getCurrentBoardFromDB({ puzzleId, boardSize, date }: getCurrentBoardParams): Promise<DailyPuzzle> {
     try {
         // console.log("puzzleId in getCurrentBoard", puzzleId, boardSize, date);
         if (puzzleId) {
@@ -135,26 +137,29 @@ export function checkGuess(board: { x: number, y: number }[], guess: string[][])
     return board.every(({ x, y }) => guess[x][y] === 'X');
 }
 
-// export async function updateProgress(userId: string, date: string, attempts: number): Promise<void> {
-//     try {
-//         const puzzleDate = new Date(date);
-//         let progress = await prisma.userProgress.findUnique({
-//             where: {
-//                 userId_puzzleDate: { userId, puzzleDate }
-//             }
-//         });
-//         if (!progress) {
-//             progress = await prisma.userProgress.create({
-//                 data: { userId, puzzleDate, completed: true, moves: attempts }
-//             });
-//         } else {
-//             progress = await prisma.userProgress.update({
-//                 where: { userId_puzzleDate: { userId, puzzleDate } },
-//                 data: { completed: true, moves: attempts }
-//             });
-//         }
-//     } catch (error) {
-//         console.error("Error updating progress:", error);
-//         throw error;
-//     }
-// }
+export async function getCurrentBoard(
+  params: getCurrentBoardParams
+): Promise<DailyPuzzle> {
+  const { date, boardSize, puzzleId } = params;
+  const expiry = getEndOfDayTimestampUTC();
+
+  if (puzzleId) {
+    const puzzleCacheKey = `puzzle:${puzzleId}`
+    return cache(
+      puzzleCacheKey,
+      () => getCurrentBoardFromDB(params),
+      expiry
+    );
+  }
+
+  if (!date || !boardSize) {
+    throw new Error("Invalid date or boardSize");
+  }
+
+  const boardCachekey = `board:${date}-${boardSize}`
+  return cache(
+    boardCachekey,
+    () => getCurrentBoardFromDB(params),
+    expiry
+  );
+}
