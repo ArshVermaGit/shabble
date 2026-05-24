@@ -15,7 +15,7 @@ export function GameStatusMessage() {
                 }
                 return (
                     <span className='text-[#a9abad] font-normal'>
-                        <span className='font-bold text-black'>
+                        <span className='font-bold text-black dark:text-white'>
                             {MAX_HINTS[settings.boardSize] - settings.hints}
                         </span> HINTS REMAINING
                     </span>

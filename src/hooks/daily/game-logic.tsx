@@ -9,7 +9,7 @@ export function useGameLogic() {
     const [showStatistics, setShowStatistics] = useState<boolean>(false);
 
     const handleTileClick = async (x: number, y: number): Promise<void> => {
-        console.log("handleTileClick", settings.gameStatus)
+        // console.log("handleTileClick", settings.gameStatus)
         if(settings.gameStatus === "won" || settings.gameStatus === "lost") {
             return;
         }
@@ -17,11 +17,11 @@ export function useGameLogic() {
             handleGuessingMode(x, y);
         } else {
             if(loadingCoordinates) return;
-            console.log("going to load tile")
+            // console.log("going to load tile")
             updateSettings({ gameStatus: "tile-loading" });
-            console.log("loading tile")
+            // console.log("loading tile")
             await takeHint(x, y);
-            console.log("loaded tile")
+            // console.log("loaded tile")
             updateSettings({ gameStatus: "playing" });
         }
     }
