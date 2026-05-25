@@ -13,9 +13,10 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
             return NextResponse.json({ errors }, { status: 400 });
         }
 
-        const { boardSize, date } = data;
-
-        const status = await getGameStatus(date, boardSize, userId!);
+        const { boardSize } = data;
+        const utcDate = new Date().toISOString().split("T")[0];
+        
+        const status = await getGameStatus(utcDate, boardSize, userId!);
 
         return NextResponse.json<GameStatusResponse>(status);
     } catch (error) {

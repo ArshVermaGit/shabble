@@ -1,36 +1,52 @@
 type CacheEntry<T> = {
-  data: T;
+  data?: T;
+  promise?: Promise<T>;
   expiry: number;
 };
 
-const cacheStore = new Map<string, CacheEntry<any>>();
+const globalForCache = globalThis as unknown as {
+  cacheStore: Map<string, CacheEntry<unknown>>;
+};
 
-function getEndOfDayTimestamp() {
-  const end = new Date();
-  end.setHours(23, 59, 59, 999);
-  return end.getTime();
-}
+const cacheStore = globalForCache.cacheStore ?? new Map<string, CacheEntry<unknown>>();
+
+if (process.env.NODE_ENV !== 'production') globalForCache.cacheStore = cacheStore;
 
 export async function cache<T>(
   key: string,
   fetchFn: () => Promise<T>,
-  expiry?: number,
+  expiry: number,
 ): Promise<T> {
   const cached = cacheStore.get(key);
 
-  if (cached && cached.expiry > Date.now()) {
-    console.log(`[CACHE HIT] ${key}`);
-    return cached.data;
+  if (cached) {
+    if (cached.data !== undefined && cached.expiry > Date.now()) {
+      return cached.data as T;
+    }
+
+    if (cached.promise) {
+      return cached.promise as Promise<T>;
+    }
   }
 
-  console.log(`[CACHE MISS] ${key}`);
-
-  const data = await fetchFn();
+  const promise = fetchFn();
 
   cacheStore.set(key, {
-    data,
-    expiry: expiry ?? getEndOfDayTimestamp(),
+    promise,
+    expiry,
   });
 
-  return data;
+  try {
+    const data = await promise;
+
+    cacheStore.set(key, {
+      data,
+      expiry,
+    });
+
+    return data;
+  } catch (e) {
+    cacheStore.delete(key);
+    throw e;
+  }
 }
